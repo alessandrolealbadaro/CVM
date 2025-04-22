@@ -14,7 +14,7 @@ class Pedido(EObject, metaclass=MetaEClass):
     def __init__(self, *, hora_pedido=None, id_pedido=None, cliente=None, endereco=None, valor_total=None, produto=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
-
+        # *********
         super().__init__()
 
         if hora_pedido is not None:
