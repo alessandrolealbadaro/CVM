@@ -1,3 +1,7 @@
+import pyecore.ecore as Ecore
+from pyecore.ecore import *
+from types import String, Integer
+
 class Pedido(EObject, metaclass=MetaEClass):
 
     hora_pedido = EAttribute(eType=EDate, unique=True, derived=False, changeable=True)
