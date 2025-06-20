@@ -7,7 +7,6 @@ TEST_DB_FILE = 'test_cargos.json'
 
 @pytest.fixture(autouse=True)
 def limpar_arquivo_json():
-    """Executa antes e depois de cada teste para isolar os dados"""
     if os.path.exists(TEST_DB_FILE):
         os.remove(TEST_DB_FILE)
     yield
