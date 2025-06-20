@@ -1,44 +1,82 @@
-class Endereco(EObject, metaclass=MetaEClass):
+import json
+import os
 
-    id_endereco = EAttribute(eType=Integer, unique=True, derived=False, changeable=True)
-    logradouro = EAttribute(eType=String, unique=True, derived=False, changeable=True)
-    bairro = EAttribute(eType=String, unique=True, derived=False, changeable=True)
-    n_predial = EAttribute(eType=String, unique=True, derived=False, changeable=True)
-    complemento = EAttribute(eType=String, unique=True, derived=False, changeable=True)
+class Endereco:
+    DB_FILE = 'enderecos.json'
 
     def __init__(self, *, id_endereco=None, logradouro=None, bairro=None, n_predial=None, complemento=None):
-        # if kwargs:
-        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
+        self.id_endereco = id_endereco
+        self.logradouro = logradouro
+        self.bairro = bairro
+        self.n_predial = n_predial
+        self.complemento = complemento
 
-        super().__init__()
+    def CarregarDados(self):
+        if not os.path.exists(self.DB_FILE):
+            return []
 
-        if id_endereco is not None:
-            self.id_endereco = id_endereco
+        with open(self.DB_FILE, 'r', encoding='utf-8') as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return []
 
-        if logradouro is not None:
-            self.logradouro = logradouro
-
-        if bairro is not None:
-            self.bairro = bairro
-
-        if n_predial is not None:
-            self.n_predial = n_predial
-
-        if complemento is not None:
-            self.complemento = complemento
+    def SalvarDados(self, dados):
+        with open(self.DB_FILE, 'w', encoding='utf-8') as f:
+            json.dump(dados, f, indent=4, ensure_ascii=False)
 
     def cadastarEndereco(self):
 
-        raise NotImplementedError('operation cadastarEndereco(...) not yet implemented')
+        dados = self.CarregarDados()
+
+        for end in dados:
+            if end['id_endereco'] == self.id_endereco:
+                return f"Erro: Já existe um endereço com id {self.id_endereco}."
+
+        novo_endereco = {
+            "id_endereco": self.id_endereco,
+            "logradouro": self.logradouro,
+            "bairro": self.bairro,
+            "n_predial": self.n_predial,
+            "complemento": self.complemento
+        }
+
+        dados.append(novo_endereco)
+        self.SalvarDados(dados)
+        return f"Endereço cadastrado com sucesso."
 
     def listarEndereco(self):
 
-        raise NotImplementedError('operation listarEndereco(...) not yet implemented')
+        dados = self.CarregarDados()
+        return dados
 
     def excluirEndereco(self):
 
-        raise NotImplementedError('operation excluirEndereco(...) not yet implemented')
+        dados = self.CarregarDados()
+        novo_dados = [end for end in dados if end['id_endereco'] != self.id_endereco]
+
+        if len(novo_dados) == len(dados):
+            return f"Nenhum endereço encontrado com id {self.id_endereco}."
+
+        self.SalvarDados(novo_dados)
+        return f"Endereço com id {self.id_endereco} excluído com sucesso."
 
     def atualizarEndereco(self):
 
-        raise NotImplementedError('operation atualizarEndereco(...) not yet implemented')
+        dados = self.CarregarDados()
+        atualizado = False
+
+        for end in dados:
+            if end['id_endereco'] == self.id_endereco:
+                end['logradouro'] = self.logradouro or end['logradouro']
+                end['bairro'] = self.bairro or end['bairro']
+                end['n_predial'] = self.n_predial or end['n_predial']
+                end['complemento'] = self.complemento or end['complemento']
+                atualizado = True
+                break
+
+        if not atualizado:
+            return f"Nenhum endereço encontrado com id {self.id_endereco}."
+
+        self.SalvarDados(dados)
+        return f"Endereço com id {self.id_endereco} atualizado com sucesso."
