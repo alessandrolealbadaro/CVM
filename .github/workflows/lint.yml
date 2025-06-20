@@ -22,27 +22,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install flake8 mypy pylint vulture
 
-      - name: Run flake8
+      - name: Install pre-commit
         run: |
-          echo "== flake8 =="
-          flake8 .
+          pip install pre-commit
 
-      - name: Run mypy
+      - name: Run pre-commit (modified files only)
         run: |
-          echo "== mypy =="
-          mypy .
-
-      - name: Run pylint
-        run: |
-          echo "== pylint =="
-          find . -name "*.py" | xargs pylint
-
-      - name: Run vulture
-        run: |
-          echo "== vulture =="
-          vulture . --min-confidence 70
+          pre-commit run --from-ref origin/main --to-ref HEAD --all-files
