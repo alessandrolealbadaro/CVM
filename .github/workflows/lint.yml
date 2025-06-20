@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "== flake8 =="
           flake8 .
-          
+
       - name: Run mypy
         run: |
           echo "== mypy =="
