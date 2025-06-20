@@ -40,7 +40,7 @@ O projeto utiliza testes unitários automatizados para garantir a integridade e 
 
 ## 🧑‍💻 Equipe de Desenvolvimento
 Este projeto foi desenvolvido por estudantes da disciplina Controle, Validação e Manutenção de Software:
-Alessandro Leal Badaró
-Alisson Rafael Siliprandi Haubert Haubert
-Ana Paula Ragievicz
-Viviane Aparecida Hreneczen
+- Alessandro Leal Badaró
+- Alisson Rafael Siliprandi Haubert Haubert
+- Ana Paula Ragievicz
+- Viviane Aparecida Hreneczen
