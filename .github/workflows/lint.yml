@@ -31,3 +31,18 @@ jobs:
         run: |
           echo "== flake8 =="
           flake8 .
+          
+      - name: Run mypy
+        run: |
+          echo "== mypy =="
+          mypy .
+
+      - name: Run pylint
+        run: |
+          echo "== pylint =="
+          find . -name "*.py" | xargs pylint
+
+      - name: Run vulture
+        run: |
+          echo "== vulture =="
+          vulture . --min-confidence 70
