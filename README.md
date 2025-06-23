@@ -1,6 +1,6 @@
 # 🍽️ Sistema de Gerenciamento de Restaurante
 
-Repositório do projeto desenvolvido na disciplina **Controle, Validação e Manutenção de Software**.
+Repositório do projeto desenvolvido na disciplina **Controle, Validação e Manutenção de Software** do 4º período do curso de Sistemas de Informação, do 1º Semestre de 2025.
 
 ## 📌 Descrição
 
